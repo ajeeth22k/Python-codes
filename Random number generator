@@ -1,0 +1,63 @@
+import matplotlib.pyplot as plt #library for plotting graphs,figures
+import numpy 
+import random
+  
+zc=[]
+zs=[]
+
+for i in range(10000):
+    
+    s=random.random()
+    t=random.random()
+
+    
+
+    Zc=numpy.sqrt(-2*numpy.log10(s))*numpy.cos(2*numpy.pi*t)
+    Zs=numpy.sqrt(-2*numpy.log10(t))*numpy.sin(2*numpy.pi*s)
+    zc.append(Zc)
+    zs.append(Zs)
+
+    
+
+def probability(data,M):#function contains all the instruction to find probability
+    
+    maximum=max(data) #finding maximum value from given data
+    minimum=min(data) #minimum value
+    
+    
+    No_of_bin=20 #no.of bins required
+    mm=minimum
+    Mean=[] #array which saves all the mean value
+    Prob=[] #saves probability
+    minimum=minimum-0.0001 #decreases the range of minimum such that the minimum point should be placed inside the bin
+    size=(maximum-minimum)/No_of_bin #size of bin
+    division=[minimum] #saves all the size of bins
+    
+    for i in range(No_of_bin):#loop for constructing bins
+        mm=mm+size #adding size value with minimum and 
+        division.append(mm)
+    
+        c=0 # c gives number of points does the each bin contains
+        limit1=division[-2]
+        limit2=division[-1]
+        mean=(division[-2]+division[-1])/2#finding mean of single bin
+        Mean.append(mean)
+       
+            
+        for point in data: #loop for finding number of points per bin
+            if point>limit1 and point<=limit2: #finding the points within the bin
+                c=c+1 #adding points
+        
+        prob=c/M #finding probability
+        Prob.append(prob)#save all the probabilities in an array 
+    
+    
+    sume=sum(Prob) #checking whether the sum all the probabilities gives 1 or not
+    
+    
+    plt.figure() 
+    plt.scatter(Mean,Prob)#scattering mean(data) vs probabailities(data)
+    plt.plot(Mean,Prob) #plotting mean(data) vs probabailities(data)
+probability(zs,len(zc))
+probability(zc,len(zc))#"""
+ 
